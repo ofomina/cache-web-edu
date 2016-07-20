@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<CSP name="partial_item.html" application="/csp/healthshare/summer_edu/" default="1"><![CDATA[
+<a href="#/manager">Back to list</a>
+<div class="well">
+  <h3>Item details</h3>
+  <div><label>Id:</label> {{item.id}}</div>
+  <div><label>Name:</label> {{item.name}}</div>
+</div>
+<span class="label label-default">{{appCtrl.info}}</span>]]></CSP>
+</Export>
