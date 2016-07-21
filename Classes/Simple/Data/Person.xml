@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Simple.Data.Person">
+<Super>Tree.Node</Super>
+<TimeCreated>64120,57454.592195</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Age">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Address">
+<Type>%String</Type>
+</Property>
+
+<Property name="City">
+<Type>%String</Type>
+</Property>
+
+<Property name="Status">
+<Type>Simple.Data.Status</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Persons</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>PersonDefaultData</DefaultData>
+<Data name="PersonDefaultData">
+<Subscript>"Person"</Subscript>
+<Value name="1">
+<Value>Name</Value>
+</Value>
+<Value name="2">
+<Value>Age</Value>
+</Value>
+<Value name="3">
+<Value>Address</Value>
+</Value>
+<Value name="4">
+<Value>City</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
