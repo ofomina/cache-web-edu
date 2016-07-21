@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
-<CSP name="partial_app.html" application="/csp/healthshare/summer_edu/" default="1"><![CDATA[
-<h1>Hello Angular Plunker!</h1>
-<div><ui-view></ui-view></div>]]></CSP>
-</Export>

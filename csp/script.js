@@ -1,6 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25">
-<CSP name="script.js" application="/csp/healthshare/summer_edu/" default="1"><![CDATA[
 // Code goes here
 angular.module('app', ['ui.router'])
   .config(['$urlRouterProvider', '$stateProvider', '$locationProvider', '$httpProvider', 
@@ -49,5 +46,3 @@ angular.module('app', ['ui.router'])
   .controller('ItemController', ['$scope', '$state', 'Data', function($scope, $state, data) {
     $scope.item = data[$state.params.index];
   }]);
-]]></CSP>
-</Export>
