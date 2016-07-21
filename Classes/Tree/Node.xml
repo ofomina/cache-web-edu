@@ -26,6 +26,7 @@
 
 <Method name="fromJSON">
 <Abstract>1</Abstract>
+<FormalSpec>proxy:%Object</FormalSpec>
 </Method>
 
 <Storage name="Default">
