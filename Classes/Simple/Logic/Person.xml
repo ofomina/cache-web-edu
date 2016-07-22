@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Simple.Logic.Person">
+<Abstract>1</Abstract>
+<TimeCreated>64121,42695.96447</TimeCreated>
+
+<Method name="Get">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Object</ReturnType>
+<Implementation><![CDATA[
+	set obj = ##class(Simple.Data.Person).%OpenId(id)
+	set json = obj.toJSON()
+	
+	return json
+]]></Implementation>
+</Method>
+
+<Method name="Save">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>proxy:%Object</FormalSpec>
+<Implementation><![CDATA[
+	if proxy.id '="0" {
+		
+	 set obj = ##class(Simple.Data.Person).%OpenId(proxy.id)
+	 do obj.fromJSON(proxy)
+	 do obj.%Save()
+	 
+	}else {
+	set obj = ##class(Simple.Data.Person).%New()
+	do obj.fromJSON(proxy)	
+	set st = obj.%Save()
+	if st '=1{
+	$$$ThrowStatus(st)	
+	}	
+	}
+]]></Implementation>
+</Method>
+
+<Method name="Delete">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<Implementation><![CDATA[	do ##class(Simple.Data.Person).%DeleteId(id)
+]]></Implementation>
+</Method>
+</Class>
+</Export>
