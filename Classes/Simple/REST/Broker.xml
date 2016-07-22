@@ -11,8 +11,6 @@
 <!-- Получить людей -->
 <Route Url="/GetPersons" Method="GET" Call="Simple.Service.Person:GetPersons"/>
 
-<Route Url="/GetAll" Method="GET" Call="Tree.Node:GetAll"/>
-
 
 
 </Routes>
