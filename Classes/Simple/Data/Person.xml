@@ -53,7 +53,7 @@
 	set ..Age = proxy.Age
 	set ..Address = proxy.Address
 	set ..City = proxy.City
-	set ..Status = ..Status.CodeIndexOpen(proxy.Status.Code)
+	set ..Status = ##class(Simple.Data.Status).CodeIndexOpen(proxy.Status.Code)
 ]]></Implementation>
 </Method>
 
