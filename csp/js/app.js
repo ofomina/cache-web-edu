@@ -1,5 +1,4 @@
-// Code goes here
-angular.module('app', ['ui.router'])
+angular.module('app', ['ui.router','ui.tree'])
   .config(['$urlRouterProvider', '$stateProvider', '$locationProvider', '$httpProvider', 
     function($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider) {
 
@@ -19,6 +18,11 @@ angular.module('app', ['ui.router'])
                   url: '/:index',
                   controller: 'ItemController',
                   templateUrl: 'partial_item.html'
+              })
+              .state('person',{
+                url:'/person',
+                controller: 'PersonController',
+                templateUrl: 'tree/tree.html'
               });
               
       //$locationProvider.html5Mode(true);
@@ -45,4 +49,7 @@ angular.module('app', ['ui.router'])
   }])
   .controller('ItemController', ['$scope', '$state', 'Data', function($scope, $state, data) {
     $scope.item = data[$state.params.index];
+  }])
+  .controller('PersonController',['$scope', function($scope){
+
   }]);
