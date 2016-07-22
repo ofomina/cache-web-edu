@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Simple.Data.Status">
+<Super>%Persistent,%XML.Adaptor,%Populate</Super>
+<TimeCreated>64120,57454.783429</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Persons">
+<Type>Simple.Data.Person</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Status</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Property name="Code">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Index name="CodeIndex">
+<Properties>Code</Properties>
+<Unique>1</Unique>
+</Index>
+</Class>
+</Export>

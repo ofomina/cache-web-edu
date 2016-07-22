@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Tree.Node">
+<Abstract>1</Abstract>
+<Super>%Persistent</Super>
+<TimeCreated>64120,60850.010429</TimeCreated>
+
+<Property name="Parent">
+<Type>Tree.Node</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Childrens</Inverse>
+<Relationship>1</Relationship>
+<OnDelete>cascade</OnDelete>
+</Property>
+
+<Property name="Childrens">
+<Type>Tree.Node</Type>
+<Cardinality>many</Cardinality>
+<Inverse>Parent</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Method name="toJSON">
+<Abstract>1</Abstract>
+<ReturnType>%Object</ReturnType>
+</Method>
+
+<Method name="fromJSON">
+<Abstract>1</Abstract>
+<FormalSpec>proxy:%Object</FormalSpec>
+</Method>
+
+<Method name="GetAll">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>tableName:%String,parentID:%String</FormalSpec>
+<ReturnType>%Array</ReturnType>
+<Implementation><![CDATA[
+	set arrayID = []
+	set sql = "select ID from "_tableName_" where (ID = "_parentID_")"
+	
+	set statement = ##class(%SQL.Statement).%New(), statement.%ObjectSelectMode=1
+	set status = statement.%Prepare(sql)
+	if ($$$ISOK(status))
+	{
+		set resultSet = statement.%Execute()
+		if (resultSet.%SQLCODE = 0)
+		{
+			while (resultSet.%Next() '= 0)
+			{
+				do arrayID.$push(resultSet.ID)
+			}
+
+		}
+		else {
+			set %sqlcontext.%SQLCODE = resultSet.%SQLCODE
+		}
+
+	return arrayID
+	}
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^Tree.NodeD</DataLocation>
+<DefaultData>NodeDefaultData</DefaultData>
+<IdLocation>^Tree.NodeD</IdLocation>
+<IndexLocation>^Tree.NodeI</IndexLocation>
+<StreamLocation>^Tree.NodeS</StreamLocation>
+<Data name="NodeDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Parent</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
