@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Simple.REST.Broker">
+<Super>%CSP.REST</Super>
+<TimeCreated>64120,61301.79551</TimeCreated>
+
+<XData name="UrlMap">
+<Data><![CDATA[
+<Routes>
+
+<!-- Получить людей -->
+<Route Url="/GetPersons" Method="GET" Call="Simple.Service.Person:GetPersons"/>
+
+<Route Url="/GetAll" Method="GET" Call="Tree.Node:GetAll"/>
+
+
+
+</Routes>
+]]></Data>
+</XData>
+</Class>
+</Export>
