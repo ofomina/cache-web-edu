@@ -40,7 +40,12 @@
 <Method name="Delete">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>id:%String</FormalSpec>
-<Implementation><![CDATA[	do ##class(Simple.Data.Person).%DeleteId(id)
+<Implementation><![CDATA[
+	set st = ##class(Simple.Data.Person).%DeleteId(id)
+	
+	if st '=1 {
+	$$$ThrowStatus(st)	
+	}
 ]]></Implementation>
 </Method>
 </Class>
