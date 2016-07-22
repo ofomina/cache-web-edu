@@ -22,6 +22,7 @@
 
 <Method name="toJSON">
 <Abstract>1</Abstract>
+<ReturnType>%Object</ReturnType>
 </Method>
 
 <Method name="fromJSON">

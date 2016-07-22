@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
 <Class name="Simple.Data.Status">
-<Super>%Persistent,%XML.Adaptor</Super>
+<Super>%Persistent,%XML.Adaptor,%Populate</Super>
 <TimeCreated>64120,57454.783429</TimeCreated>
 
 <Property name="Name">
@@ -11,13 +11,13 @@
 
 <Property name="Persons">
 <Type>Simple.Data.Person</Type>
-<Cardinality>one</Cardinality>
+<Cardinality>many</Cardinality>
 <Inverse>Status</Inverse>
 <Relationship>1</Relationship>
 </Property>
 
 <Property name="Code">
-<Type>%Integer</Type>
+<Type>%String</Type>
 <Required>1</Required>
 </Property>
 
@@ -25,28 +25,5 @@
 <Properties>Code</Properties>
 <Unique>1</Unique>
 </Index>
-
-<Storage name="Default">
-<Type>%Library.CacheStorage</Type>
-<DataLocation>^Simple.Data.StatusD</DataLocation>
-<DefaultData>StatusDefaultData</DefaultData>
-<IdLocation>^Simple.Data.StatusD</IdLocation>
-<IndexLocation>^Simple.Data.StatusI</IndexLocation>
-<StreamLocation>^Simple.Data.StatusS</StreamLocation>
-<Data name="StatusDefaultData">
-<Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
-<Value>Name</Value>
-</Value>
-<Value name="3">
-<Value>Persons</Value>
-</Value>
-<Value name="4">
-<Value>Code</Value>
-</Value>
-</Data>
-</Storage>
 </Class>
 </Export>

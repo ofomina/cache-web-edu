@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
 <Class name="Simple.Data.Person">
-<Super>Tree.Node</Super>
+<Super>Tree.Node,%Populate</Super>
 <TimeCreated>64120,57454.592195</TimeCreated>
 
 <Property name="Name">
@@ -24,10 +24,38 @@
 
 <Property name="Status">
 <Type>Simple.Data.Status</Type>
-<Cardinality>many</Cardinality>
+<Cardinality>one</Cardinality>
 <Inverse>Persons</Inverse>
 <Relationship>1</Relationship>
 </Property>
+
+<Method name="toJSON">
+<ReturnType>%Object</ReturnType>
+<Implementation><![CDATA[
+	set proxy = {
+	"Name":..Name,
+	"Age":..Age,
+	"Address":..Address,
+	"City":..City,
+	"Status":{
+		"Name":..Status.Name,
+		"Code":..Status.Code}
+	
+	}
+	return proxy
+]]></Implementation>
+</Method>
+
+<Method name="fromJSON">
+<FormalSpec>proxy:%Object</FormalSpec>
+<Implementation><![CDATA[
+	set ..Name = proxy.Name
+	set ..Age = proxy.Age
+	set ..Address = proxy.Address
+	set ..City = proxy.City
+	set ..Status = ..Status.CodeIndexOpen(proxy.Status.Code)
+]]></Implementation>
+</Method>
 
 <Storage name="Default">
 <Type>%Library.CacheStorage</Type>
@@ -45,6 +73,9 @@
 </Value>
 <Value name="4">
 <Value>City</Value>
+</Value>
+<Value name="5">
+<Value>Status</Value>
 </Value>
 </Data>
 </Storage>
