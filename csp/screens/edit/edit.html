@@ -1,30 +1,30 @@
 <div class="form-horizontal">
-<from class="form-group">
+<form name="1" class="form-group" ng-submit="save()">
 	<div class="form-group">
-		<label class="col-sm-2 control-label">Name:</label><div class="col-sm-9"><input class="form-control" type="text" name="" placeholder="Name"/></div>
+		<label class="col-sm-2 control-label">Name:</label><div class="col-sm-9"><input class="form-control" type="text" name="" ng-model="object.Name" placeholder="Name"/></div>
 		<div class="col-md-1"></div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label">Age:</label><div class="col-sm-9"><input class="form-control" type="text" name="" placeholder="Age"/></div>
+		<label class="col-sm-2 control-label">Age:</label><div class="col-sm-9"><input class="form-control" type="text" name="" ng-model="object.Age" placeholder="Age"/></div>
 		<div class="col-md-1"></div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label">City:</label><div class="col-sm-9"><input class="form-control" type="text" name="" placeholder="City"/></div>
+		<label class="col-sm-2 control-label">City:</label><div class="col-sm-9"><input class="form-control" type="text" name="" ng-model="object.City" placeholder="City"/></div>
 		<div class="col-md-1"></div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-2 control-label">Address:</label><div class="col-sm-9"><input class="form-control" type="text" name="" placeholder="Address"/></div>
+		<label class="col-sm-2 control-label">Address:</label><div class="col-sm-9"><input class="form-control" type="text" name="" ng-model="object.Address" placeholder="Address"/></div>
 		<div class="col-md-1"></div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Status:</label>
 		<div class="col-sm-9">
-			<select class="form-control">
-				<option ng-repeat="status in statuses track by status.Code" value="{{status.Code}}">{{status.Name}}</option>
+			<select class="form-control" ng-model="object.Status" ng-options="status as status.Name for status in statuses">
+			<!--	<option ng-repeat="status in statuses track by status.Code" value="{{status}}">{{status.Name}}</option>-->
 			</select>
 		</div>
 		<div class="col-md-1"></div>
 	</div>
-	<div class="col-md-2"></div><button class="btn btn-success">Save</button>
-</from>
+	<div class="col-md-2"></div><button name="Save" value="Save" class="btn btn-success">Save</button>
+</form>
 </div>
