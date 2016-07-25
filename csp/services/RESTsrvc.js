@@ -4,20 +4,21 @@
 Доступ к БД через REST
 ===========================================================================================*/
 
-servicesModule.factory('RESTSrvc', function($http, $q) {	
+servicesModule.factory('RESTSrvc', ["$http", "$q", function($http, $q) {	
 	return {
 		getPromise: function(config){
             var deferred = $q.defer();
 
             $http(config).
-                success(function(data, status, headers, config){
+                then(
+                function(data, status, headers, config){
                     deferred.resolve(data);
-                }).
-                error(function(data, status, headers, config){
+                },
+                function(data, status, headers, config){
                     deferred.reject(data, status, headers, config);
                 });
 
             return deferred.promise;
     	}
     }
-});
+}]);

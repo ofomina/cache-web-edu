@@ -1,7 +1,7 @@
 'use strict';
 
-servicesModule.factory('PersonSrvc', function(RESTSrvc) {	
+servicesModule.factory('PersonSrvc', ["RESTSrvc", function(RESTSrvc) {	
 	return {
 		getAll: function(){
-            return RESTSrvc.getPromise({method: 'GET' , url: 'Broker/GetPersons'});
-		}}});
+            return RESTSrvc.getPromise({method: 'GET' , url: 'broker/GetPersons'});
+		}}}]);
