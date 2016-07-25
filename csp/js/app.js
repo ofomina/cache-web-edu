@@ -1,4 +1,5 @@
-angular.module('app', ['ui.router','ui.tree'])
+var servicesModule = angular.module('ServicesModule',[]);
+var app = angular.module('app', ['ui.router','ui.tree','ServicesModule'])
   .config(['$urlRouterProvider', '$stateProvider', '$locationProvider', '$httpProvider', 
     function($urlRouterProvider, $stateProvider, $locationProvider, $httpProvider) {
 
@@ -11,6 +12,7 @@ angular.module('app', ['ui.router','ui.tree'])
               
       //$locationProvider.html5Mode(true);
       $urlRouterProvider.otherwise("/person");
+
   }])
   
 
