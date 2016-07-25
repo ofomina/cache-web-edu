@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Simple.Test.AllTests">
+<Super>Simple.Test.TestCase</Super>
+<TimeCreated>64124,34556.396828</TimeCreated>
+
+<Method name="TestPerson">
+<Implementation><![CDATA[
+	set person = ##class(Simple.Data.Person).%New()
+	do $$$AssertTrue($isobject(person),"Создание объекта Simple.Data.Person")
+	set person = ##class(Simple.Data.Person).%New()
+	set person.Address ="23, Main st"
+	set person.Age="43"
+	set person.City="New York"
+	set person.Name = "Mark Harrison"
+	set status = person.%Save()
+	do $$$AssertStatusOK(status, "Добавление новой записи")
+]]></Implementation>
+</Method>
+
+<Method name="TesttoJSON">
+<Implementation><![CDATA[
+	set person = ##class(Simple.Data.Person).%New()
+	set person.Address ="23, Main st"
+	set person.Age="43"
+	set person.City="New York"
+	set person.Name = "Mark Harrison"
+	set obj = person.toJSON()
+	
+	do $$$AssertTrue($isobject(obj),"Выполнение toJSON")
+]]></Implementation>
+</Method>
+
+<Method name="TestSaveNull">
+<Implementation><![CDATA[
+	set person = ##class(Simple.Data.Person).%New()
+	set status = person.%Save()
+	do $$$AssertStatusNotOK(status,"Сохранение пустой записи не выполнено")
+]]></Implementation>
+</Method>
+
+<Method name="TestfromJSON">
+<Implementation><![CDATA[
+	
+	set person = ##class(Simple.Data.Person).%New()
+	set jsn = {"Name":"Mark Harrison","Age":"43","City":"New York","Addres":"24, Main st","Status":{"Name":"Жив","Code":"live"}}
+	do person.fromJSON(jsn)
+	set status = person.%Save()
+	do $$$AssertStatusOK(status,"Выполнение корректного fromJSON")
+]]></Implementation>
+</Method>
+
+<Method name="TestfromnullJSON">
+<Implementation><![CDATA[
+	set person = ##class(Simple.Data.Person).%New()
+	//set jsn ={"Name":"","Age":"","City":"","Addres":"","Status":{"Name":"","Code":""}}
+	set jsn = {}
+	do person.fromJSON(jsn)
+	set status = person.%Save()
+	do $$$AssertStatusNotOK(status,"Выполнение пустого fromJSON")
+]]></Implementation>
+</Method>
+
+<Method name="TestGet">
+<Implementation><![CDATA[
+	set person = ##class(Simple.Data.Person).%New()
+	set person.Address ="23, Main st"
+	set person.Age="43"
+	set person.City="New York"
+	set person.Name = "Mark Harrison"
+	set status = person.%Save()
+	do $$$AssertStatusOK(status, "Добавление новой записи")
+		
+		set obj = ##class(Simple.Logic.Person).Get(person.%Id())
+	do $$$AssertEquals("Mark Harrison",obj.Name,"Выполнение Get")
+]]></Implementation>
+</Method>
+</Class>
+</Export>
