@@ -8,6 +8,12 @@ var app = angular.module('app', ['ui.router','ui.tree','ServicesModule'])
                 url:'/person',
                 controller: 'PersonController',
                 templateUrl: 'screens/person/person.html'
+
+              })
+              .state('edit',{
+              	url:'/edit',
+              	controller:'PersonEdit',
+              	templateUrl:'screens/edit/edit.html'
               });
               
       //$locationProvider.html5Mode(true);
