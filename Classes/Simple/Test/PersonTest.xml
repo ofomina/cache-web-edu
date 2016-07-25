@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Simple.Test.PersonTest">
+<Super>%UnitTest.TestCase</Super>
+<TimeCreated>64121,59130.621224</TimeCreated>
+</Class>
+</Export>

@@ -48,12 +48,14 @@
 
 <Method name="fromJSON">
 <FormalSpec>proxy:%Object</FormalSpec>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	set ..Name = proxy.Name
 	set ..Age = proxy.Age
 	set ..Address = proxy.Address
 	set ..City = proxy.City
 	set ..Status = ##class(Simple.Data.Status).CodeIndexOpen(proxy.Status.Code)
+	return $$$OK
 ]]></Implementation>
 </Method>
 
