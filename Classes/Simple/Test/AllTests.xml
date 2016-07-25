@@ -25,8 +25,8 @@
 	set person.Age="43"
 	set person.City="New York"
 	set person.Name = "Mark Harrison"
-	set obj = person.toJSON()
-	
+	set obj = ##class(%ZEN.proxyObject).%New()
+	set obj = person.toJSON()	
 	do $$$AssertTrue($isobject(obj),"Выполнение toJSON")
 ]]></Implementation>
 </Method>
@@ -43,8 +43,16 @@
 <Implementation><![CDATA[
 	
 	set person = ##class(Simple.Data.Person).%New()
-	set jsn = {"Name":"Mark Harrison","Age":"43","City":"New York","Addres":"24, Main st","Status":{"Name":"Жив","Code":"live"}}
-	do person.fromJSON(jsn)
+	set obj = ##class(%ZEN.proxyObject).%New()
+	set status = ##class(%ZEN.proxyObject).%New()
+	set obj.Name="Mark Harrison"
+	set obj.Age="43"
+	set obj.City="New York"
+	set obj.Addres="24, Main st"
+	set status.Name="Жив"
+	set status.Code="live"
+	set obj.Status=status
+	do person.fromJSON(obj)
 	set status = person.%Save()
 	do $$$AssertStatusOK(status,"Выполнение корректного fromJSON")
 ]]></Implementation>
@@ -53,9 +61,16 @@
 <Method name="TestfromnullJSON">
 <Implementation><![CDATA[
 	set person = ##class(Simple.Data.Person).%New()
-	//set jsn ={"Name":"","Age":"","City":"","Addres":"","Status":{"Name":"","Code":""}}
-	set jsn = {}
-	do person.fromJSON(jsn)
+	set obj = ##class(%ZEN.proxyObject).%New()
+	set status = ##class(%ZEN.proxyObject).%New()
+	set obj.Name=""
+	set obj.Age=""
+	set obj.City=""
+	set obj.Addres=""
+	set status.Name=""
+	set status.Code=""
+	set obj.Status=status
+	do person.fromJSON(obj)
 	set status = person.%Save()
 	do $$$AssertStatusNotOK(status,"Выполнение пустого fromJSON")
 ]]></Implementation>
@@ -69,10 +84,38 @@
 	set person.City="New York"
 	set person.Name = "Mark Harrison"
 	set status = person.%Save()
-	do $$$AssertStatusOK(status, "Добавление новой записи")
-		
-		set obj = ##class(Simple.Logic.Person).Get(person.%Id())
+	do $$$AssertStatusOK(status, "Добавление новой записи")		
+	set obj = ##class(Simple.Logic.Person).Get(person.%Id())
 	do $$$AssertEquals("Mark Harrison",obj.Name,"Выполнение Get")
+]]></Implementation>
+</Method>
+
+<Method name="TestGetinv">
+<Implementation><![CDATA[
+	try{
+	set status = ##class(Simple.Logic.Person).Get("q")
+		}catch ex{ 
+		set status = 0
+	}
+	do $$$AssertStatusNotOK(status,"Некорректный ID")
+]]></Implementation>
+</Method>
+
+<Method name="TestSaveLogic">
+<Implementation><![CDATA[
+
+	set obj = ##class(%ZEN.proxyObject).%New()
+	set status = ##class(%ZEN.proxyObject).%New()
+	set obj.id = "0"
+	set obj.Name="Mark Harrison"
+	set obj.Age="43"
+	set obj.City="New York"
+	set obj.Addres="24, Main st"
+	set status.Name="Жив"
+	set status.Code="live"
+	set obj.Status=status
+	set status = ##class(Simple.Logic.Person).Save(obj)
+	do $$$AssertStatusOK(status,"Добавление успешно")
 ]]></Implementation>
 </Method>
 </Class>
