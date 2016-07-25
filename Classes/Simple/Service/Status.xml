@@ -8,6 +8,7 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
+	set proxy = ##class(%ZEN.proxyObject).%New()
 	set array = ##class(%ListOfObjects).%New()
 	&sql(declare EC cursor for
 			select Name, Code
@@ -17,14 +18,16 @@
 	for {
 		&sql(fetch EC)
 		quit:(SQLCODE '=0)
-		write name, code, !
+		//write name, code, !
 		set json = ##class(%ZEN.proxyObject).%New()
 		set json.Name = name
 		set json.Code = code
 		do array.Insert(json)
 	}
 	&sql(close EC)
-	do array.ToJSON()
+	set proxy.list = array
+	do proxy.%ToJSON()
+	return $$$OK
 ]]></Implementation>
 </Method>
 </Class>
