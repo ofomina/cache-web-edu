@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Simple.Service.Status">
+<Abstract>1</Abstract>
+<TimeCreated>64124,53509.796503</TimeCreated>
+
+<Method name="GetStatuses">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set array = ##class(%ListOfObjects).%New()
+	&sql(declare EC cursor for
+			select Name, Code
+			into :name,:code
+			from Simple_Data.Status)
+	&sql(open EC)
+	for {
+		&sql(fetch EC)
+		quit:(SQLCODE '=0)
+		write name, code, !
+		set json = ##class(%ZEN.proxyObject).%New()
+		set json.Name = name
+		set json.Code = code
+		do array.Insert(json)
+	}
+	&sql(close EC)
+	do array.ToJSON()
+]]></Implementation>
+</Method>
+</Class>
+</Export>
