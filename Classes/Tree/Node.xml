@@ -22,20 +22,20 @@
 
 <Method name="toJSON">
 <Abstract>1</Abstract>
-<ReturnType>%Object</ReturnType>
+<ReturnType>%ZEN.proxyObject</ReturnType>
 </Method>
 
 <Method name="fromJSON">
 <Abstract>1</Abstract>
-<FormalSpec>proxy:%Object</FormalSpec>
+<FormalSpec>proxy:%ZEN.proxyObject</FormalSpec>
 </Method>
 
 <Method name="GetAll">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>tableName:%String,parentID:%String</FormalSpec>
-<ReturnType>%Array</ReturnType>
+<ReturnType>%ListOfObjects</ReturnType>
 <Implementation><![CDATA[
-	set arrayID = []
+	set arrayID = ##class(%ListOfObjects).%New()
 	set sql = "select ID from "_tableName_" where (ID = "_parentID_")"
 	
 	set statement = ##class(%SQL.Statement).%New(), statement.%ObjectSelectMode=1
@@ -47,7 +47,7 @@
 		{
 			while (resultSet.%Next() '= 0)
 			{
-				do arrayID.$push(resultSet.ID)
+				do arrayID.Insert(resultSet.ID)
 			}
 
 		}

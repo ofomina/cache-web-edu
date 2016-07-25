@@ -9,19 +9,24 @@
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	set quant = $RANDOM(10)+"1"
-	set array = []
+	set array = ##class(%ListOfObjects).%New()
 	
 	for i = 1:1:quant{
-		set json = {
-			"Name": ##class(%PopulateUtils).Name(),
-			"Age": ##class(%PopulateUtils).Integer("1","100"),
-	        "City": ##class(%PopulateUtils).City(),
-			"Address": ##class(%PopulateUtils).Street(),
-	        "Status":##class(%PopulateUtils).ValueList(",0,1")
-	}
-	do array.%Push(json)
+		set json = ##class(%ZEN.proxyObject).%New()
+			set json.Name = ##class(%PopulateUtils).Name()
+			set json.Age = ##class(%PopulateUtils).Integer("1","100")
+			set json.City = ##class(%PopulateUtils).City()
+			set json.Address = ##class(%PopulateUtils).Street()
+			set json.Status = ##class(%PopulateUtils).ValueList(",0,1")
+			//"Name": ##class(%PopulateUtils).Name(),
+			//"Age": ##class(%PopulateUtils).Integer("1","100"),
+	        //"City": ##class(%PopulateUtils).City(),
+			//"Address": ##class(%PopulateUtils).Street(),
+	        //"Status":##class(%PopulateUtils).ValueList(",0,1")
+	
+	do array.Insert(json)
 	 
-}
+	}
 	do array.ToJSON()
 ]]></Implementation>
 </Method>

@@ -30,24 +30,22 @@
 </Property>
 
 <Method name="toJSON">
-<ReturnType>%Object</ReturnType>
+<ReturnType>%ZEN.proxyObject</ReturnType>
 <Implementation><![CDATA[
-	set proxy = {
-	"Name":..Name,
-	"Age":..Age,
-	"Address":..Address,
-	"City":..City,
-	"Status":{
-		"Name":..Status.Name,
-		"Code":..Status.Code}
-	
-	}
+	set proxy = ##class(%ZEN.proxyObject).%New()
+	set proxy.Name = ..Name
+	set proxy.Age = ..Age
+	set proxy.Address = ..Address
+	set proxy.City = ..City
+	set proxy.Status = ##class(%ZEN.proxyObject).%New()
+	set proxy.Status.Name = ..Status.Name
+	set proxy.Status.Code = ..Status.Code
 	return proxy
 ]]></Implementation>
 </Method>
 
 <Method name="fromJSON">
-<FormalSpec>proxy:%Object</FormalSpec>
+<FormalSpec>proxy:%ZEN.proxyObject</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	set ..Name = proxy.Name

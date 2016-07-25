@@ -7,7 +7,7 @@
 <Method name="Get">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>id:%String</FormalSpec>
-<ReturnType>%Object</ReturnType>
+<ReturnType>%ZEN.proxyObject</ReturnType>
 <Implementation><![CDATA[
 	set obj = ##class(Simple.Data.Person).%OpenId(id)
 	set json = obj.toJSON()
@@ -18,7 +18,7 @@
 
 <Method name="Save">
 <ClassMethod>1</ClassMethod>
-<FormalSpec>proxy:%Object</FormalSpec>
+<FormalSpec>proxy:%ZEN.proxyObject</FormalSpec>
 <Implementation><![CDATA[
 	if proxy.id '="0" {
 		
