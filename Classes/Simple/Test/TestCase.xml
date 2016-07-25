@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-<Class name="Simple.Test.PersonTest">
+<Class name="Simple.Test.TestCase">
 <Super>%UnitTest.TestCase</Super>
-<TimeCreated>64121,59130.621224</TimeCreated>
+<TimeCreated>64124,36002.643292</TimeCreated>
 
 <Method name="Run">
 <ClassMethod>1</ClassMethod>

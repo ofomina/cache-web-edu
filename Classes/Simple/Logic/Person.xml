@@ -9,7 +9,7 @@
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%ZEN.proxyObject</ReturnType>
 <Implementation><![CDATA[
-	set obj = ##class(Simple.Data.Person).%OpenId(id)
+	set obj = ##class(Simple.Data.Person).%OpenId(id,,.st)
 	set json = obj.toJSON()
 	
 	return json
@@ -19,10 +19,11 @@
 <Method name="Save">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>proxy:%ZEN.proxyObject</FormalSpec>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	if proxy.id '="0" {
 		
-	 set obj = ##class(Simple.Data.Person).%OpenId(proxy.id)
+	 set obj = ##class(Simple.Data.Person).%OpenId(proxy.id,,.st)
 	 do obj.fromJSON(proxy)
 	 do obj.%Save()
 	 
@@ -34,18 +35,22 @@
 	$$$ThrowStatus(st)	
 	}	
 	}
+	
+	return $$$OK
 ]]></Implementation>
 </Method>
 
 <Method name="Delete">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
 	set st = ##class(Simple.Data.Person).%DeleteId(id)
 	
 	if st '=1 {
 	$$$ThrowStatus(st)	
 	}
+	return $$$OK
 ]]></Implementation>
 </Method>
 </Class>

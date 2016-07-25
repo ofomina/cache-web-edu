@@ -8,26 +8,30 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
+	set proxy = ##class(%ZEN.proxyObject).%New()
+	
 	set quant = $RANDOM(10)+"1"
-	set array = []
+	set array = ##class(%ListOfObjects).%New()
 	
 	for i = 1:1:quant{
-		set st = ##class(Simple.Data.Status).%OpenId(##class(%PopulateUtils).ValueList(",1,2"))
-		set json = {
-			"Name": ##class(%PopulateUtils).Name(),
-			"Age": ##class(%PopulateUtils).Integer("1","100"),
-	        "City": ##class(%PopulateUtils).City(),
-			"Address": ##class(%PopulateUtils).Street(),
-	        "Status":{
-		        "Name":st.Name,
-		        "Code":st.Code
-	        }
-		}
-		do array.$push(json)
-	}
-	write array.$toJSON()
+		set json = ##class(%ZEN.proxyObject).%New()
+			set json.Name = ##class(%PopulateUtils).Name()
+			set json.Age = ##class(%PopulateUtils).Integer("1","100")
+			set json.City = ##class(%PopulateUtils).City()
+			set json.Address = ##class(%PopulateUtils).Street()
+			set json.Status = ##class(%PopulateUtils).ValueList(",0,1")
+			//"Name": ##class(%PopulateUtils).Name(),
+			//"Age": ##class(%PopulateUtils).Integer("1","100"),
+	        //"City": ##class(%PopulateUtils).City(),
+			//"Address": ##class(%PopulateUtils).Street(),
+	        //"Status":##class(%PopulateUtils).ValueList(",0,1")
 	
-	return $$$OK
+	do array.Insert(json)
+	 
+	}
+	set proxy.list = array
+	
+	do proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 </Class>

@@ -10,7 +10,7 @@
 
 <!-- Получить людей -->
 <Route Url="/GetPersons" Method="GET" Call="Simple.Service.Person:GetPersons"/>
-
+<Route Url="/GetStatuses" Method="GET" Call="Simple.Service.Status:GetStatuses"/>
 
 
 </Routes>
