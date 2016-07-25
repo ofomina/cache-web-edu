@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="Simple.Service.Person">
+<Abstract>1</Abstract>
+<TimeCreated>64120,67933.889603</TimeCreated>
+
+<Method name="GetPersons">
+<ClassMethod>1</ClassMethod>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set quant = $RANDOM(10)+"1"
+	set array = []
+	
+	for i = 1:1:quant{
+		set st = ##class(Simple.Data.Status).%OpenId(##class(%PopulateUtils).ValueList(",1,2"))
+		set json = {
+			"Name": ##class(%PopulateUtils).Name(),
+			"Age": ##class(%PopulateUtils).Integer("1","100"),
+	        "City": ##class(%PopulateUtils).City(),
+			"Address": ##class(%PopulateUtils).Street(),
+	        "Status":{
+		        "Name":st.Name,
+		        "Code":st.Code
+	        }
+		}
+		do array.$push(json)
+	}
+	write array.$toJSON()
+	
+	return $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>
