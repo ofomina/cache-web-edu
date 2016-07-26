@@ -28,8 +28,11 @@
 				console.log('фывапроьбю');
 				$window.location.href= '#/edit';
 			},
-            remove: function(){
-				PersonSrvc.remove;
+			edit: function(person){
+				$window.location.href= '#/edit/'+person.Id;
+			},
+            remove: function(person){
+				return PersonSrvc.remove(person.Id);
 			}
 		};
 		
