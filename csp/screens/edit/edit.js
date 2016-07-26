@@ -16,7 +16,7 @@
   				function(data,status,headers,config){
   					console.log("good person");
   					$scope.object = data.data;
-  					console.log($scope.object);
+  					//console.log($scope.object);
   				},
   				function(data,status,headers,config){
   					console.log("bad person");

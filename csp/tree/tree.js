@@ -11,17 +11,21 @@ treeModule.directive('tree', function(){
 			restFunctions: '='
 		},
 		controller: ["$scope",function($scope){
-				console.log('tree initiated epta!11');				
+				console.log('tree initiated');				
 				
-				$scope.restFunctions.get("", $scope.columns).
+				$scope.update = function(){
+					$scope.restFunctions.get("", $scope.columns).
 					then(function(data, status, headers, config){
 						console.log('truth branch');
 						$scope.data = data.data.list;
-						console.log($scope.data);
+						//console.log($scope.data);
 					},
 					function(data, status, headers, config){
 						console.log('everything is bad')
 					});
+				}
+
+				$scope.update();
 					
 				$scope.getPropertyValue = function(item,propertyStr){
 					var value = item;
@@ -58,7 +62,8 @@ treeModule.directive('tree', function(){
 						column.sorted = "top";
 					}
 				}
-
+				
+				
 				
 		}]
 	};	
