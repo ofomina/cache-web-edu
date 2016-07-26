@@ -48,6 +48,16 @@ treeModule.directive('tree', function(){
 				$scope.openPerson = function(person){
 					person.close=!person.close;
 				}
+				
+				$scope.sortered = function(column){
+					if (column.sorted == "top"){
+						column.sorted = "bottom";
+					} else if(column.sorted == "bottom"){
+						column.sorted = "false";
+					} else {
+						column.sorted = "top";
+					}
+				}
 
 				
 		}]
