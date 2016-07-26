@@ -45,8 +45,17 @@ treeModule.directive('tree', function(){
 	
 				};
 				
-				$scope.openPerson = function(person){
+				$scope.open = function(person){
 					person.close=!person.close;
+					$scope.restFunctions.get(person.Id,$scope.columns).
+					then(function(data,status,headers,config){
+							console.log("childrens is coming");
+							person.childrens = data.data.list;
+						},
+						function(data,status,headers,config){
+							console.log("childrens is dead");
+						});
+					}
 				}
 
 				
