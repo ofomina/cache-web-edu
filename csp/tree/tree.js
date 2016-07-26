@@ -24,9 +24,9 @@ treeModule.directive('tree', function(){
 					
 				$scope.getPropertyValue = function(item,propertyStr){
 					var value = item;
-					console.log('123455667898078765432123567890856432456');
-					console.log(item);
-					console.log(propertyStr);
+					//console.log('123455667898078765432123567890856432456');
+					//console.log(item);
+					//console.log(propertyStr);
 					try{
 						var properties = propertyStr.split('.');
 						for (var i=0; i<properties.length; i++){

@@ -4,6 +4,10 @@
 <Super>Tree.Node,%Populate</Super>
 <TimeCreated>64120,57454.592195</TimeCreated>
 
+<Parameter name="TABLENAME">
+<Default>Simple_Data.Person</Default>
+</Parameter>
+
 <Property name="Name">
 <Type>%String</Type>
 <Required>1</Required>

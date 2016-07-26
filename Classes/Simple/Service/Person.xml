@@ -8,31 +8,20 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-    set proxy = ##class(%ZEN.proxyObject).%New()
+    set st = $$$OK
     
-    set quant = $RANDOM(10)+"1"
-    set array = ##class(%ListOfObjects).%New()
-    
-    for i = 1:1:quant{
-        set json = ##class(%ZEN.proxyObject).%New()
-            set json.Name = ##class(%PopulateUtils).Name()
-            set json.Age = ##class(%PopulateUtils).Integer("1","100")
-            set json.City = ##class(%PopulateUtils).City()
-            set json.Address = ##class(%PopulateUtils).Street()
-            set json.Status = ##class(%PopulateUtils).ValueList(",0,1")
-            //"Name": ##class(%PopulateUtils).Name(),
-            //"Age": ##class(%PopulateUtils).Integer("1","100"),
-            //"City": ##class(%PopulateUtils).City(),
-            //"Address": ##class(%PopulateUtils).Street(),
-            //"Status":##class(%PopulateUtils).ValueList(",0,1")
-    
-    do array.Insert(json)
-     
+    try
+    {
+        set st = ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject($ZCVT(%request.Content.Read(),"I","UTF8"),,.data,1)
+        set persons = ##class(Simple.Logic.Person).GetAll(data)
+        do persons.%ToJSON()
     }
-    set proxy.list = array
+    catch ex
+    {
+        set st = ex.AsStatus()
+    }
     
-    do proxy.%ToJSON()
-    return $$$OK
+    return st
 ]]></Implementation>
 </Method>
 

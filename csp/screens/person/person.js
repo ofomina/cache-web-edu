@@ -13,8 +13,9 @@
   							property:"City"},
 							{caption:"Адрес",
   							property:"Address"},
-							{caption:"Статус",
+							{caption:"Возраст",
   							property:"Status.Name"}
+
 						];
 						
 		$scope.editFunctions = {

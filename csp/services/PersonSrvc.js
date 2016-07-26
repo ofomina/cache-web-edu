@@ -6,9 +6,8 @@ servicesModule.factory('PersonSrvc', ["RESTSrvc", function(RESTSrvc) {
             return RESTSrvc.getPromise({method: 'GET' , url: 'broker/GetPersons'});
 		},
 		save: function(object){
-			console.log(object);
+			return RESTSrvc.getPromise({method: 'POST',url:'broker/person/save', data:object});;
 		},
-		
 		remove: function(id){
 			return RESTSrvc.getPromise({method: 'DELETE' , url: 'broker/person' + id});
 		}
