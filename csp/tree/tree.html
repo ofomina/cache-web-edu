@@ -4,6 +4,9 @@
     	<th ng-repeat="cl in columns"><span ng-bind="cl.caption"></span></th>
     	<th></th>
     </tr>
+    <tr>
+    	<th ng-repeat="cl in columns"><input type="text" ng-model="cl.value" ng-change=""></input></th>
+    </tr>
     </thead>
     	<tr ng-repeat="st in data"> <!-- |limitTo:10 -->
     		<td ng-repeat="cl in columns">

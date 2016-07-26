@@ -7,14 +7,19 @@
   		$scope.persons = PersonSrvc.getAll;
   		
   		$scope.columns = [{caption:"Имя",
-  							property:"Name"},
+  							property:"Name",
+  							valuer:""},
 							{caption:"Возраст",
-  							property:"Age"},
+  							property:"Age",
+  							value:""},
 							{caption:"Город",
-  							property:"City"},
+  							property:"City",
+  							value:""},
 							{caption:"Адрес",
-  							property:"Address"},
+  							property:"Address",
+  							value:""},
 							{caption:"Возраст",
-  							property:"Status.Name"}
+  							property:"Status.Name",
+  							value:""}
 						];
   }]);
