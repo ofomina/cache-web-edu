@@ -24,7 +24,7 @@
 <FormalSpec>proxy:%ZEN.proxyObject</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	if ##class(Simple.Data.Person).%ExistId(proxy.Id) 
+	if ##class(Simple.Data.Person).%ExistsId(proxy.id) 
 	{
 	    set obj = ##class(Simple.Data.Person).%OpenId(proxy.id,,.st)
 	    if $$$ISERR(st) $$$ThrowStatus()

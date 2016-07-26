@@ -5,7 +5,7 @@
   		console.log("plovobok");
   		$scope.object = {};
   		$scope.save = function(){
-  			
+  			console.log('goTo PersonSrvc');
   			PersonSrvc.save($scope.object);
   		};
   		StatusSrvc.getAll().then(
