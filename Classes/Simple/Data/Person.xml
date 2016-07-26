@@ -37,6 +37,7 @@
 <ReturnType>%ZEN.proxyObject</ReturnType>
 <Implementation><![CDATA[
 	set proxy = ##class(%ZEN.proxyObject).%New()
+	set proxy.Id = ..%Id()
 	set proxy.Name = ..Name
 	set proxy.Age = ..Age
 	set proxy.Address = ..Address
