@@ -1,4 +1,5 @@
-  <table class="table table-bordered table-hover">
+
+  <table class="table table-bordered table-hover" style="table-layout: fixed;">
 	<thead>
 	<tr>
     	<th ng-repeat="cl in columns"><span ng-bind="cl.caption"></span></th>
@@ -9,12 +10,13 @@
     </tr>
     </thead>
     	<tr ng-repeat="st in data"> 
-    		<td ng-repeat="cl in columns">
+    		<td ng-repeat="cl in columns" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
     			<span class="glyphicon glyphicon-triangle-right" ng-if="$index==0&&!st.close" ng-click="openPerson(st)"></span>
     			<span class="glyphicon glyphicon-triangle-bottom" ng-if="$index==0&&st.close" ng-click="openPerson(st)"></span>
     			<span ng-bind="getPropertyValue(st, cl.property)"></span>
     		</td>
     		<td><button type="button" class="btn btn-default" ng-click="restFunctions.add()"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>
+    		<button type="button" class="btn btn-default" ng-click=""><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></button>
     		<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
     		</td>
     </tr>
