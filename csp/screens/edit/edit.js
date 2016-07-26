@@ -1,7 +1,7 @@
  'use strict';
 
  angular.module('app')
- .controller('PersonEdit', ['$scope','$state','StatusSrvc','PersonSrvc', function($scope,$state,StatusSrvc,PersonSrvc) {
+ .controller('PersonEdit', ['$scope','$window','$state','StatusSrvc','PersonSrvc', function($scope,$window,$state,StatusSrvc,PersonSrvc) {
   		console.log("plovobok");
   		$scope.object = {};
   		$scope.id = $state.params.id;
@@ -33,6 +33,12 @@
   			function(data,status,headers,config) {
   				console.log("bad status");
   			}
-  		); 
+  		);
+  		
+  		$scope.back = function(){
+  			console.log('goTo person.html');
+  			$window.location.href= '#/person';
+  		}; 
+  		
 
   }]);
