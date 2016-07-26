@@ -8,13 +8,13 @@
     	<th ng-repeat="cl in columns"><input type="text" ng-model="cl.value" ng-change=""></input></th>
     </tr>
     </thead>
-    	<tr ng-repeat="st in data"> <!-- |limitTo:10 -->
+    	<tr ng-repeat="st in data"> 
     		<td ng-repeat="cl in columns">
     			<span class="glyphicon glyphicon-triangle-right" ng-if="$index==0&&!st.close" ng-click="openPerson(st)"></span>
     			<span class="glyphicon glyphicon-triangle-bottom" ng-if="$index==0&&st.close" ng-click="openPerson(st)"></span>
     			<span ng-bind="getPropertyValue(st, cl.property)"></span>
     		</td>
-    		<td><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>
+    		<td><button type="button" class="btn btn-default" ng-click="restFunctions.add()"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>
     		<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
     		</td>
     </tr>

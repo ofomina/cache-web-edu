@@ -2,24 +2,35 @@
 
  angular.module('app')
  
- .controller('PersonController', ['$scope','PersonSrvc', function($scope,PersonSrvc) {
+ .controller('PersonController', ['$scope','$location','PersonSrvc', function($scope,$location,PersonSrvc) {
   		console.log("Пловобок");
-  		$scope.persons = PersonSrvc.getAll;
   		
   		$scope.columns = [{caption:"Имя",
-  							property:"Name",
-  							valuer:""},
+  							property:"Name"},
 							{caption:"Возраст",
-  							property:"Age",
-  							value:""},
+  							property:"Age"},
 							{caption:"Город",
-  							property:"City",
-  							value:""},
+  							property:"City"},
 							{caption:"Адрес",
-  							property:"Address",
-  							value:""},
+  							property:"Address"},
 							{caption:"Возраст",
-  							property:"Status.Name",
-  							value:""}
+  							property:"Status.Name"}
+
 						];
+						
+		$scope.editFunctions = {
+			get: function(){
+				console.log(PersonSrvc);
+				return PersonSrvc.getAll();
+			},
+			
+			add: function(){
+				$location.href= '/edit';
+			},
+            remove: function(){
+				PersonSrvc.remove;
+			}
+		};
+		
+
   }]);

@@ -6,7 +6,11 @@ servicesModule.factory('PersonSrvc', ["RESTSrvc", function(RESTSrvc) {
             return RESTSrvc.getPromise({method: 'POST' , url: 'broker/GetPersons',data:{parentId:parentId,columns:columns}});
 		},
 		save: function(object){
-			return RESTSrvc.getPromise({method: 'POST',url:'broker/person/save', data:object});
+			return RESTSrvc.getPromise({method: 'POST',url:'broker/person/save', data:object});;
+		},
+		remove: function(id){
+			return RESTSrvc.getPromise({method: 'DELETE' , url: 'broker/person' + id});
 		}
+
 	}
 }]);

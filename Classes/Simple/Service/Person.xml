@@ -14,6 +14,7 @@
     {
         set st = ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject($ZCVT(%request.Content.Read(),"I","UTF8"),,.data,1)
         set persons = ##class(Simple.Logic.Person).GetAll(data)
+        do persons.%ToJSON()
     }
     catch ex
     {
