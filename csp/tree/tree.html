@@ -2,7 +2,11 @@
   <table class="table table-bordered table-hover" style="table-layout: fixed;">
 	<thead>
 	<tr>
-    	<th ng-repeat="cl in columns"><span ng-bind="cl.caption"></span></th>
+    	<th ng-repeat="cl in columns" ng-click="sortered(cl)">
+    		<span ng-bind="cl.caption"></span>
+    		<span class ="glyphicon glyphicon-chevron-up" ng-show="cl.sorted='top'"></span>
+    		<span class ="glyphicon glyphicon-chevron-down" ng-show="cl.sorted='bottom'"></span>
+    	</th>
     	<th></th>
     </tr>
     <tr>
