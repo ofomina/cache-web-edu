@@ -34,5 +34,47 @@
 	do proxy.%ToJSON()
 ]]></Implementation>
 </Method>
+
+<Method name="Delete">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	set status = $$$OK
+	tstart
+	try{
+		do ##class(Simple.Logic.Person).Delete(id)
+		tcommit
+	}catch ex{
+		set status = ex.AsStatus()
+		trollback 
+	}
+	return status
+]]></Implementation>
+</Method>
+
+<Method name="Get">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>id:%String</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	try{
+		set json = ##class(Simple.Logic.Person).Get(id)
+		do json.%ToJSON()
+		set status=$$$OK
+	}catch ex{
+		set status = ex.AsStatus() 
+	}
+	return status
+]]></Implementation>
+</Method>
+
+<Method name="Save">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>proxy:%ZEN.proxyObject</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[	set status = ##class(Simple.Logic.Person).Save(proxy)
+]]></Implementation>
+</Method>
 </Class>
 </Export>
