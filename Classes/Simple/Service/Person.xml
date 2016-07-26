@@ -13,6 +13,8 @@
     try
     {
         set st = ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject($ZCVT(%request.Content.Read(),"I","UTF8"),,.data,1)
+        if $$$ISERR(st) $$$ThrowStatus(st)
+        
         set persons = ##class(Simple.Logic.Person).GetAll(data)
         do persons.%ToJSON()
     }

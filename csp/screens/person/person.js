@@ -2,7 +2,7 @@
 
  angular.module('app')
  
- .controller('PersonController', ['$scope','$location','PersonSrvc', function($scope,$location,PersonSrvc) {
+ .controller('PersonController', ['$scope','$window','PersonSrvc', function($scope,$window,PersonSrvc) {
   		console.log("Пловобок");
   		
   		$scope.columns = [{caption:"Имя",
@@ -13,19 +13,20 @@
   							property:"City"},
 							{caption:"Адрес",
   							property:"Address"},
-							{caption:"Возраст",
+							{caption:"Статус",
   							property:"Status.Name"}
 
 						];
 						
 		$scope.editFunctions = {
-			get: function(){
+			get: function(parentId, columns){
 				console.log(PersonSrvc);
-				return PersonSrvc.getAll();
+				return PersonSrvc.getAll(parentId, columns);
 			},
 			
 			add: function(){
-				$location.href= '/edit';
+				console.log('фывапроьбю');
+				$window.location.href= '#/edit';
 			},
             remove: function(){
 				PersonSrvc.remove;

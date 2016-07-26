@@ -13,10 +13,11 @@ treeModule.directive('tree', function(){
 		controller: ["$scope",function($scope){
 				console.log('tree initiated epta!11');				
 				
-				$scope.restFunctions.get().
+				$scope.restFunctions.get("", $scope.columns).
 					then(function(data, status, headers, config){
 						console.log('truth branch');
 						$scope.data = data.data.list;
+						console.log($scope.data);
 					},
 					function(data, status, headers, config){
 						console.log('everything is bad')

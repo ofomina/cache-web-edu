@@ -76,7 +76,7 @@
 <Method name="GetAll">
 <ClassMethod>1</ClassMethod>
 <FormalSpec>parentID:%String,columns:%ListOfObjects</FormalSpec>
-<ReturnType>%ListOfDataTypes</ReturnType>
+<ReturnType>%ListOfObjects</ReturnType>
 <Implementation><![CDATA[
     set arrayID = ##class(%ListOfDataTypes).%New()
     set sql = ..CreateSql(parentID, columns)

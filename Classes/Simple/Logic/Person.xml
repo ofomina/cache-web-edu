@@ -67,7 +67,7 @@
     
     for i = 1:1:list.Count()
     {
-          do persons.list.Insert(..Get(list.GetAt(i)))
+          do persons.list.Insert(list.GetAt(i).toJSON())
     }
     
     return persons
