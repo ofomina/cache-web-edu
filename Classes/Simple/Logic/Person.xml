@@ -54,5 +54,24 @@
 	return $$$OK
 ]]></Implementation>
 </Method>
+
+<Method name="GetAll">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>proxy:%ZEN.proxyObject</FormalSpec>
+<ReturnType>%ZEN.proxyObject</ReturnType>
+<Implementation><![CDATA[
+    set persons = ##class(%ZEN.proxyObject).%New()
+    set persons.list = ##class(%ListOfObjects).%New()
+      
+    set list = ##class(Simple.Data.Person).GetAll(proxy.parentId, proxy.columns)
+    
+    for i = 1:1:list.Count()
+    {
+          do persons.list.Insert(..Get(list.GetAt(i)))
+    }
+    
+    return persons
+]]></Implementation>
+</Method>
 </Class>
 </Export>
