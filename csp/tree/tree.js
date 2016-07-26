@@ -7,20 +7,16 @@ treeModule.directive('tree', function(){
 		templateUrl: 'tree/tree.html',
 
 		scope:{
-			get:'&',
-			columns: '='
+			columns: '=',
+			restFunctions: '='
 		},
 		controller: ["$scope",function($scope){
-				console.log('tree initiated epta!11');
-				console.log($scope.columns);
+				console.log('tree initiated epta!11');				
 				
-				
-				$scope.get().
+				$scope.restFunctions.get().
 					then(function(data, status, headers, config){
 						console.log('truth branch');
-						$scope.data = data.data;
-						
-						console.log($scope.data);
+						$scope.data = data.data.list;
 					},
 					function(data, status, headers, config){
 						console.log('everything is bad')
@@ -28,7 +24,9 @@ treeModule.directive('tree', function(){
 					
 				$scope.getPropertyValue = function(item,propertyStr){
 					var value = item;
-					
+					console.log('123455667898078765432123567890856432456');
+					console.log(item);
+					console.log(propertyStr);
 					try{
 						var properties = propertyStr.split('.');
 						for (var i=0; i<properties.length; i++){
@@ -50,7 +48,7 @@ treeModule.directive('tree', function(){
 					person.close=!person.close;
 				}
 
-
+				
 		}]
 	};	
 	}

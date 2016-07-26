@@ -7,6 +7,11 @@ servicesModule.factory('PersonSrvc', ["RESTSrvc", function(RESTSrvc) {
 		},
 		save: function(object){
 			console.log(object);
+		},
+		
+		remove: function(id){
+			return RESTSrvc.getPromise({method: 'DELETE' , url: 'broker/person' + id});
 		}
+
 	}
 }]);

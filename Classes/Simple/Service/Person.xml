@@ -32,6 +32,7 @@
     set proxy.list = array
     
     do proxy.%ToJSON()
+    return $$$OK
 ]]></Implementation>
 </Method>
 
