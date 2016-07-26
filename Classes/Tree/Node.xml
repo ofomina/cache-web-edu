@@ -5,6 +5,9 @@
 <Super>%Persistent</Super>
 <TimeCreated>64120,60850.010429</TimeCreated>
 
+<Parameter name="TABLENAME">
+</Parameter>
+
 <Property name="Parent">
 <Type>Tree.Node</Type>
 <Cardinality>one</Cardinality>
@@ -30,33 +33,65 @@
 <FormalSpec>proxy:%ZEN.proxyObject</FormalSpec>
 </Method>
 
+<Method name="CreateSql">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>parentId:%String="",columns:%ListOfObjects</FormalSpec>
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+    set sql = "SELECT id FROM "_..#TABLENAME_" WHERE '1'='1'"
+    
+    if (parentId '= "") 
+    {
+        set sql = sql_" AND 'parent' = '"_parentId_"'"
+    }
+    else
+    {
+        for i = 1:1:columns.Count()
+        {
+            set column = columns.GetAt(i)
+            if (column.Value '= "") set sql = sql_" AND '"_column.Property_"' LIKE '%"_column.Value_"%'"
+        }   
+    }
+    
+    for i = 1:1:columns.Count()
+    {
+        set column = columns.GetAt(i)
+        
+        if (column.Sorted = "top")
+        {
+            set sql = sql_" ORDER BY "_column.Property_" DESC"
+            quit   
+        }
+        elseif (column.Sorted = "bottom")
+        {
+            set sql = sql_" ORDER BY "_column.Property
+            quit   
+        }   
+    }
+    
+    return sql
+]]></Implementation>
+</Method>
+
 <Method name="GetAll">
 <ClassMethod>1</ClassMethod>
-<FormalSpec>tableName:%String,parentID:%String</FormalSpec>
-<ReturnType>%ListOfObjects</ReturnType>
+<FormalSpec>parentID:%String,columns:%ListOfObjects</FormalSpec>
+<ReturnType>%ListOfDataTypes</ReturnType>
 <Implementation><![CDATA[
-	set arrayID = ##class(%ListOfObjects).%New()
-	set sql = "select ID from "_tableName_" where (ID = "_parentID_")"
-	
-	set statement = ##class(%SQL.Statement).%New(), statement.%ObjectSelectMode=1
-	set status = statement.%Prepare(sql)
-	if ($$$ISOK(status))
-	{
-		set resultSet = statement.%Execute()
-		if (resultSet.%SQLCODE = 0)
-		{
-			while (resultSet.%Next() '= 0)
-			{
-				do arrayID.Insert(resultSet.ID)
-			}
+    set arrayID = ##class(%ListOfDataTypes).%New()
+    set sql = ..CreateSql(parentID, columns)
+    
+    set statement = ##class(%SQL.Statement).%New(), statement.%ObjectSelectMode=1
+    set status = statement.%Prepare(sql)
+    if $$$ISERR(status) $$$ThrowStatus(status)
+    
+    set resultSet = statement.%Execute()
+    while (resultSet.%Next() '= 0)
+    {
+        do arrayID.Insert(resultSet.ID)
+    }
 
-		}
-		else {
-			set %sqlcontext.%SQLCODE = resultSet.%SQLCODE
-		}
-
-	return arrayID
-	}
+    return arrayID
 ]]></Implementation>
 </Method>
 
