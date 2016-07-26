@@ -14,11 +14,16 @@ var app = angular.module('app', ['ui.router','ui.tree','ServicesModule'])
               	url:'/edit',
               	controller:'PersonEdit',
               	templateUrl:'screens/edit/edit.html'
+              })
+              .state('edit.item',{
+              	url:'/:id',
+              	controller:'PersonEdit',
+              	templateUrl:'screens/edit/edit.html'
               });
               
       //$locationProvider.html5Mode(true);
       $urlRouterProvider.otherwise("/person");
-
+      
   }])
   
 
