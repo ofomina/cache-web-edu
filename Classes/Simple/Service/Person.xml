@@ -8,30 +8,30 @@
 <ClassMethod>1</ClassMethod>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	set proxy = ##class(%ZEN.proxyObject).%New()
-	
-	set quant = $RANDOM(10)+"1"
-	set array = ##class(%ListOfObjects).%New()
-	
-	for i = 1:1:quant{
-		set json = ##class(%ZEN.proxyObject).%New()
-			set json.Name = ##class(%PopulateUtils).Name()
-			set json.Age = ##class(%PopulateUtils).Integer("1","100")
-			set json.City = ##class(%PopulateUtils).City()
-			set json.Address = ##class(%PopulateUtils).Street()
-			set json.Status = ##class(%PopulateUtils).ValueList(",0,1")
-			//"Name": ##class(%PopulateUtils).Name(),
-			//"Age": ##class(%PopulateUtils).Integer("1","100"),
-	        //"City": ##class(%PopulateUtils).City(),
-			//"Address": ##class(%PopulateUtils).Street(),
-	        //"Status":##class(%PopulateUtils).ValueList(",0,1")
-	
-	do array.Insert(json)
-	 
-	}
-	set proxy.list = array
-	
-	do proxy.%ToJSON()
+    set proxy = ##class(%ZEN.proxyObject).%New()
+    
+    set quant = $RANDOM(10)+"1"
+    set array = ##class(%ListOfObjects).%New()
+    
+    for i = 1:1:quant{
+        set json = ##class(%ZEN.proxyObject).%New()
+            set json.Name = ##class(%PopulateUtils).Name()
+            set json.Age = ##class(%PopulateUtils).Integer("1","100")
+            set json.City = ##class(%PopulateUtils).City()
+            set json.Address = ##class(%PopulateUtils).Street()
+            set json.Status = ##class(%PopulateUtils).ValueList(",0,1")
+            //"Name": ##class(%PopulateUtils).Name(),
+            //"Age": ##class(%PopulateUtils).Integer("1","100"),
+            //"City": ##class(%PopulateUtils).City(),
+            //"Address": ##class(%PopulateUtils).Street(),
+            //"Status":##class(%PopulateUtils).ValueList(",0,1")
+    
+    do array.Insert(json)
+     
+    }
+    set proxy.list = array
+    
+    do proxy.%ToJSON()
 ]]></Implementation>
 </Method>
 
@@ -40,16 +40,18 @@
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	set status = $$$OK
-	tstart
-	try{
-		do ##class(Simple.Logic.Person).Delete(id)
-		tcommit
-	}catch ex{
-		set status = ex.AsStatus()
-		trollback 
-	}
-	return status
+    set status = $$$OK
+    
+    tstart
+    try{
+        do ##class(Simple.Logic.Person).Delete(id)
+        tcommit
+    }catch ex{
+        set status = ex.AsStatus()
+        trollback 
+    }
+    
+    return status
 ]]></Implementation>
 </Method>
 
@@ -58,22 +60,41 @@
 <FormalSpec>id:%String</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	try{
-		set json = ##class(Simple.Logic.Person).Get(id)
-		do json.%ToJSON()
-		set status=$$$OK
-	}catch ex{
-		set status = ex.AsStatus() 
-	}
-	return status
+    set st = $$$OK
+    
+    try{
+        set json = ##class(Simple.Logic.Person).Get(id)
+        do json.%ToJSON()
+    }catch ex{
+        set st = ex.AsStatus() 
+    }
+    
+    return st
 ]]></Implementation>
 </Method>
 
 <Method name="Save">
 <ClassMethod>1</ClassMethod>
-<FormalSpec>proxy:%ZEN.proxyObject</FormalSpec>
 <ReturnType>%Status</ReturnType>
-<Implementation><![CDATA[	set status = ##class(Simple.Logic.Person).Save(proxy)
+<Implementation><![CDATA[
+    set st = $$$OK
+        
+    TSTART
+    try
+    {
+        set st = ##class(%ZEN.Auxiliary.jsonProvider).%ConvertJSONToObject($ZCVT(%request.Content.Read(),"I","UTF8"),,.data,1)
+        if $$$ISERR(st) $$$ThrowStatus(st)
+        
+        do ##class(Simple.Logic.Person).Save(data)
+        TCOMMIT
+    } 
+    catch ex
+    {
+        TROLLBACK
+        set st = ex.AsStatus()
+    }
+    
+    return st
 ]]></Implementation>
 </Method>
 </Class>

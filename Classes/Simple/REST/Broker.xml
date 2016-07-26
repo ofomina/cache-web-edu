@@ -11,9 +11,10 @@
 <!-- Получить людей -->
 <Route Url="/GetPersons" Method="GET" Call="Simple.Service.Person:GetPersons"/>
 <Route Url="/GetStatuses" Method="GET" Call="Simple.Service.Status:GetStatuses"/>
-<Route Url="/person/id" Method="GET" Call="Simple.Service.Person:Get"/>
+
+<Route Url="/person/:id" Method="GET" Call="Simple.Service.Person:Get"/>
 <Route Url="/person/save" Method="POST" Call="Simple.Service.Person:Save"/>
-<Route Url="/person/delete" Method="DELETE" Call="Simple.Service.Person:Delete"/>
+<Route Url="/person/:id" Method="DELETE" Call="Simple.Service.Person:Delete"/>
 
 </Routes>
 ]]></Data>

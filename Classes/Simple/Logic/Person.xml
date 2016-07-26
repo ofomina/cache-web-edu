@@ -10,6 +10,9 @@
 <ReturnType>%ZEN.proxyObject</ReturnType>
 <Implementation><![CDATA[
 	set obj = ##class(Simple.Data.Person).%OpenId(id,,.st)
+	
+	if $$$ISERR(st) $$$ThrowStatus(st) 
+	
 	set json = obj.toJSON()
 	
 	return json
@@ -21,20 +24,18 @@
 <FormalSpec>proxy:%ZEN.proxyObject</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
-	if proxy.id '="0" {
-		
-	 set obj = ##class(Simple.Data.Person).%OpenId(proxy.id,,.st)
-	 do obj.fromJSON(proxy)
-	 do obj.%Save()
-	 
+	if ##class(Simple.Data.Person).%ExistId(proxy.Id) 
+	{
+	    set obj = ##class(Simple.Data.Person).%OpenId(proxy.id,,.st)
+	    if $$$ISERR(st) $$$ThrowStatus()
+	    do obj.fromJSON(proxy)
 	}else {
-	set obj = ##class(Simple.Data.Person).%New()
-	do obj.fromJSON(proxy)	
-	set st = obj.%Save()
-	if st '=1{
-	$$$ThrowStatus(st)	
-	}	
+	    set obj = ##class(Simple.Data.Person).%New()
+	    do obj.fromJSON(proxy)		
 	}
+	
+	set st = obj.%Save()
+	if $$$ISERR(st) $$$ThrowStatus(st)
 	
 	return $$$OK
 ]]></Implementation>
@@ -47,8 +48,8 @@
 <Implementation><![CDATA[
 	set st = ##class(Simple.Data.Person).%DeleteId(id)
 	
-	if st '=1 {
-	$$$ThrowStatus(st)	
+	if $$$ISERR(st) {
+	    $$$ThrowStatus(st)	
 	}
 	return $$$OK
 ]]></Implementation>
