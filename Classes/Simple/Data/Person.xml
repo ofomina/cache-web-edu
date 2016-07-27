@@ -42,6 +42,11 @@
 	set proxy.Age = ..Age
 	set proxy.Address = ..Address
 	set proxy.City = ..City
+	if (..Parent '="")
+	{
+		set proxy.Parent = ..Parent.%Id()
+	}
+	
 	set proxy.Status = ##class(%ZEN.proxyObject).%New()
 	set proxy.Status.Name = ..Status.Name
 	set proxy.Status.Code = ..Status.Code
