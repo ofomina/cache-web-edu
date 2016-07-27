@@ -1,7 +1,7 @@
  'use strict';
 
  angular.module('app')
- .controller('PersonEdit', ['$scope','$window','$state','StatusSrvc','PersonSrvc', function($scope,$window,$state,StatusSrvc,PersonSrvc) {
+ .controller('AddChildController', ['$scope','$window','$state','StatusSrvc','PersonSrvc', function($scope,$window,$state,StatusSrvc,PersonSrvc) {
   		console.log("plovobok");
   		$scope.object = {};
   		$scope.id = $state.params.id;
@@ -13,8 +13,6 @@
 
   		if ($scope.id) {
   			   $scope.object.Parent = $scope.id;
-  				
-  			);
 		}
 		
   		StatusSrvc.getAll().then(

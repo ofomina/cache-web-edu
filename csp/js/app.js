@@ -22,7 +22,7 @@ var app = angular.module('app', ['ui.router','ui.tree','ServicesModule'])
               })
               .state('addChild',{
               	url:'/addChild/:id',
-              	controller:'PersonEdit',
+              	controller:'AddChildController',
               	templateUrl:'screens/addChild/addChild.html'
               });
               
