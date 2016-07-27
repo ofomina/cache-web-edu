@@ -9,6 +9,7 @@
   		$scope.save = function(){
   			console.log('goTo PersonSrvc');
   			PersonSrvc.save($scope.object);
+        $window.location.href= '#/person';
   		};
 
   		if ($scope.id) {
