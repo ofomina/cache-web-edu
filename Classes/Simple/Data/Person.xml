@@ -57,6 +57,7 @@
 	set ..Age = proxy.Age
 	set ..Address = proxy.Address
 	set ..City = proxy.City
+	set ..Parent = ##class(Simple.Data.Person).%OpenId(proxy.Parent)
 	set ..Status = ##class(Simple.Data.Status).CodeIndexOpen(proxy.Status.Code)
 	return $$$OK
 ]]></Implementation>

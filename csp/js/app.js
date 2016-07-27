@@ -19,6 +19,11 @@ var app = angular.module('app', ['ui.router','ui.tree','ServicesModule'])
               	url:'/:id',
               	controller:'PersonEdit',
               	templateUrl:'screens/edit/edit.html'
+              })
+              .state('addChild',{
+              	url:'/addChild/:id',
+              	controller:'PersonEdit',
+              	templateUrl:'screens/addChild/addChild.html'
               });
               
       //$locationProvider.html5Mode(true);

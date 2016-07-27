@@ -28,6 +28,9 @@
 				//console.log('фывапроьбю');
 				$window.location.href= '#/edit';
 			},
+			addChild: function(item){
+				$window.location.href ='#/addChild/'+item.Id;
+			}
 			edit: function(person){
 				console.log(person);
 				$window.location.href= '#/edit/'+person.Id;
