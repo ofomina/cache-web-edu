@@ -13,6 +13,8 @@ treeModule.directive('tree', function(){
 		controller: ["$scope",function($scope){
 				console.log('tree initiated');				
 				
+				var sortedColumn;
+				
 				$scope.update = function(){
 					$scope.restFunctions.get("", $scope.columns).
 					then(function(data, status, headers, config){
@@ -117,6 +119,10 @@ treeModule.directive('tree', function(){
 						column.sorted = "top";
 					}
 					$scope.update();
+					if ((sortedColumn !== undefined) && (sortedColumn !== column)){
+						sortedColumn.sorted = false;
+					};
+					sortedColumn = column;
 				};
 
 
