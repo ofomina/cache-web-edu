@@ -48,17 +48,34 @@ treeModule.directive('tree', function(){
 				};
 				
 				$scope.open = function(person){
-					person.close=!person.close;
+					console.log("open person");
+					
+					var index;
+					for (var i = 0; i < $scope.data.length; i++) {
+						if ($scope.data[i].Id == person.Id)
+						{
+						 	index = i;
+						 	break;
+						}
+					}
+					
 					$scope.restFunctions.get(person.Id,$scope.columns).
-					then(function(data,status,headers,config){
-							console.log("childrens is coming");
-							person.childrens = data.data.list;
+						then(function(data,status,headers,config){
+							for (var i = 0; i < data.data.list.length; i++)
+							{
+								console.log(data.data.list[i]);
+								$scope.data.splice(index+1, 0, data.data.list[i]);
+								index++;
+							}
+							person.childCount = data.data.list.length;
+							person.open = true;
 						},
 						function(data,status,headers,config){
 							console.log("childrens is dead");
 						});
-					};
+				};
 				
+
 				
 				$scope.sortered = function(column){
 					if (column.sorted == "top"){
@@ -69,11 +86,14 @@ treeModule.directive('tree', function(){
 						column.sorted = "top";
 					}
 				};
+
+
 				
 				$scope.remove = function(person){
 					$scope.restFunctions.remove(person);
 					$scope.update();
 				}
+
 				
 		}]
 	};	
