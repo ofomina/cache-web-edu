@@ -13,7 +13,7 @@
     	<th ng-repeat="cl in columns"><input type="text" ng-model="cl.value" style="width:100%" ng-change="update()"></input></th>
     </tr>
     </thead>
-    	<tr ng-repeat="st in data"> 
+    	<tr ng-repeat="st in data | filter:cl.value"> 
     		<td ng-repeat="cl in columns" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
     			<span class="glyphicon glyphicon-triangle-right" ng-if="$index==0&&!st.close" ng-click="open(st)"></span>
     			<span class="glyphicon glyphicon-triangle-bottom" ng-if="$index==0&&st.close" ng-click="open(st)"></span>
@@ -21,7 +21,7 @@
     		</td>
     		<td><button type="button" class="btn btn-success" ng-click="restFunctions.add()"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>
     		<button type="button" class="btn btn-warning" ng-click="restFunctions.edit(st)"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></button>
-    		<button type="button" class="btn btn-danger" ng-click="restFunctions.remove(st)"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
+    		<button type="button" class="btn btn-danger" ng-click="remove(st)"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
     		</td>
     </tr>
 
