@@ -70,7 +70,10 @@ treeModule.directive('tree', function(){
 					}
 				};
 				
-				
+				$scope.remove = function(person){
+					$scope.restFunctions.remove(person);
+					$scope.update();
+				}
 				
 		}]
 	};	
