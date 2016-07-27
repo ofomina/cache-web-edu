@@ -111,6 +111,7 @@ treeModule.directive('tree', function(){
 					} else {
 						column.sorted = "top";
 					}
+					$scope.update();
 				};
 
 
