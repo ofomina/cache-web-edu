@@ -35,40 +35,46 @@
 
 <Method name="CreateSql">
 <ClassMethod>1</ClassMethod>
-<FormalSpec>parentId:%String="",columns:%ListOfObjects</FormalSpec>
+<FormalSpec>parentId:%String="",columns:%ListOfObjects,*plist</FormalSpec>
 <ReturnType>%String</ReturnType>
 <Implementation><![CDATA[
-    set sql = "SELECT id FROM "_..#TABLENAME_" WHERE '1'='1'"
+    set sql = "SELECT id FROM "_..#TABLENAME_" WHERE 1=1"
+    set plist = 0
     
     if (parentId '= "") 
     {
-        set sql = sql_" AND 'parent' = '"_parentId_"'"
+        set sql = sql_" AND ""parent"" = ?"
+        set plist($i(plist)) = parentId
     }
     else
     {
-        for i = 1:1:columns.Count()
-        {
-            set column = columns.GetAt(i)
-            if (column.Value '= "") set sql = sql_" AND '"_column.Property_"' LIKE '%"_column.Value_"%'"
-        }   
+        set sql = sql_" AND ""parent"" is NULL"   
     }
     
+    for i = 1:1:columns.Count()
+    {
+        set column = columns.GetAt(i)
+        if (column.Value '= "") {
+            set sql = sql_" AND """_column.Property_""" LIKE ?"
+            set plist($i(plist)) = "%"_column.Value_"%"
+        }
+    }   
+        
     for i = 1:1:columns.Count()
     {
         set column = columns.GetAt(i)
         
         if (column.Sorted = "top")
         {
-            set sql = sql_" ORDER BY "_column.Property_" DESC"
+            set sql = sql_" ORDER BY """_column.Property_""" DESC"
             quit   
         }
         elseif (column.Sorted = "bottom")
         {
-            set sql = sql_" ORDER BY "_column.Property
+            set sql = sql_" ORDER BY """_column.Property_""""
             quit   
         }   
     }
-    
     return sql
 ]]></Implementation>
 </Method>
@@ -78,14 +84,14 @@
 <FormalSpec>parentID:%String,columns:%ListOfObjects</FormalSpec>
 <ReturnType>%ListOfObjects</ReturnType>
 <Implementation><![CDATA[
-    set arrayID = ##class(%ListOfDataTypes).%New()
-    set sql = ..CreateSql(parentID, columns)
+    set arrayID = ##class(%ListOfObjects).%New()
+    set sql = ..CreateSql(parentID, columns, .plist)
     
     set statement = ##class(%SQL.Statement).%New(), statement.%ObjectSelectMode=1
     set status = statement.%Prepare(sql)
     if $$$ISERR(status) $$$ThrowStatus(status)
     
-    set resultSet = statement.%Execute()
+    set resultSet = statement.%Execute(plist...)
     while (resultSet.%Next() '= 0)
     {
         do arrayID.Insert(resultSet.ID)

@@ -11,23 +11,25 @@ treeModule.directive('tree', function(){
 			restFunctions: '='
 		},
 		controller: ["$scope",function($scope){
-				console.log('tree initiated epta!11');				
+				console.log('tree initiated');				
 				
-				$scope.restFunctions.get("", $scope.columns).
+				$scope.update = function(){
+					$scope.restFunctions.get("", $scope.columns).
 					then(function(data, status, headers, config){
 						console.log('truth branch');
 						$scope.data = data.data.list;
-						console.log($scope.data);
+						//console.log($scope.data);
 					},
 					function(data, status, headers, config){
 						console.log('everything is bad')
 					});
+				};
+
+				$scope.update();
 					
 				$scope.getPropertyValue = function(item,propertyStr){
 					var value = item;
-					//console.log('123455667898078765432123567890856432456');
-					//console.log(item);
-					//console.log(propertyStr);
+
 					try{
 						var properties = propertyStr.split('.');
 						for (var i=0; i<properties.length; i++){
@@ -69,9 +71,8 @@ treeModule.directive('tree', function(){
 							console.log("childrens is dead");
 						});
 					};
-				$scope.close = function(person){
-					person.close=!person.close;
-				}
+				
+
 				
 				$scope.sortered = function(column){
 					if (column.sorted == "top"){
@@ -82,6 +83,13 @@ treeModule.directive('tree', function(){
 						column.sorted = "top";
 					}
 				};
+
+
+				
+				$scope.remove = function(person){
+					$scope.restFunctions.remove(person);
+					$scope.update();
+				}
 
 				
 		}]

@@ -3,7 +3,7 @@
  angular.module('app')
  
  .controller('PersonController', ['$scope','$window','PersonSrvc', function($scope,$window,PersonSrvc) {
-  		console.log("Пловобок");
+  		//console.log("Пловобок");
   		
   		$scope.columns = [{caption:"Имя",
   							property:"Name"},
@@ -20,15 +20,16 @@
 						
 		$scope.editFunctions = {
 			get: function(parentId, columns){
-				console.log(PersonSrvc);
+				//console.log(PersonSrvc);
 				return PersonSrvc.getAll(parentId, columns);
 			},
 			
 			add: function(){
-				console.log('фывапроьбю');
+				//console.log('фывапроьбю');
 				$window.location.href= '#/edit';
 			},
 			edit: function(person){
+				console.log(person);
 				$window.location.href= '#/edit/'+person.Id;
 			},
             remove: function(person){
