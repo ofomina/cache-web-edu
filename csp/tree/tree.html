@@ -11,15 +11,18 @@
     </tr>
     <tr>
     	<th ng-repeat="cl in columns"><input type="text" ng-model="cl.value" style="width:100%" ng-change="update()"></input></th>
+    	<th><button type="button" class="btn btn-success" ng-click="restFunctions.add()"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></th>
     </tr>
     </thead>
     	<tr ng-repeat="st in data | filter:cl.value"> 
     		<td ng-repeat="cl in columns" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-    			<span class="glyphicon glyphicon-triangle-right" ng-if="$index==0&&!st.close" ng-click="open(st)"></span>
-    			<span class="glyphicon glyphicon-triangle-bottom" ng-if="$index==0&&st.close" ng-click="close(st)"></span>
+
+    			<span class="glyphicon glyphicon-triangle-right" ng-if="$index==0&&!st.open" ng-click="open(st)" style="padding-left: {{st.margin}}px"></span>
+    			<span class="glyphicon glyphicon-triangle-bottom" ng-if="$index==0&&st.open" ng-click="close(st)" style="padding-left: {{st.margin}}px"></span>
+
     			<span ng-bind="getPropertyValue(st, cl.property)"></span>
     		</td>
-    		<td><button type="button" class="btn btn-success" ng-click="restFunctions.add()"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>
+    		<td><button type="button" class="btn btn-success" ng-click="restFunctions.addChild(st)"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>
     		<button type="button" class="btn btn-warning" ng-click="restFunctions.edit(st)"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></button>
     		<button type="button" class="btn btn-danger" ng-click="remove(st)"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>
     		</td>
